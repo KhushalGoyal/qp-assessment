@@ -1,0 +1,410 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "REST API for Grocery Application",
+        "version": "1.0.0"
+    },
+    "schemes": [
+        "http"
+    ],
+    "components": {
+        "securitySchemes": {
+            "Bearer": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+                "description": ">-Enter the token with the `Bearer: ` prefix, e.g. 'Bearer abcde12345'"
+            }
+        }
+    },
+    "servers": [{
+        "url": "http://localhost:3000/"
+    }],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Login",
+                "description": "Login",
+                "requestBody": {
+                    "description": "Request body",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/grocery": {
+            "get": {
+                "tags": [
+                    "Grocery"
+                ],
+                "summary": "Get All Grocery List",
+                "description": "Get All Grocery List",
+                "parameters": [{
+                        "name": "name",
+                        "in": "query",
+                        "description": "Search on name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "post": {
+                "tags": [
+                    "Grocery"
+                ],
+                "summary": "Add Grocery Item",
+                "description": "Add Grocery Item",
+                "requestBody": {
+                    "description": "Request body",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/api/grocery/{itemId}": {
+            "delete": {
+                "tags": [
+                    "Grocery"
+                ],
+                "summary": "Delete Grocery Item",
+                "description": "Delete Grocery Item",
+                "parameters": [{
+                    "name": "itemId",
+                    "in": "path",
+                    "description": "Item id to delete",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "patch": {
+                "tags": [
+                    "Grocery"
+                ],
+                "summary": "Update Grocery Item",
+                "description": "Update Grocery Item",
+                "parameters": [{
+                    "name": "itemId",
+                    "in": "path",
+                    "description": "Item id to update",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }],
+                "requestBody": {
+                    "description": "Request body",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/api/inventory": {
+            "get": {
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Get Grocery Item Inventory",
+                "description": "Get Grocery Item Inventory",
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/api/inventory/{itemId}": {
+            "patch": {
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Manage Grocery Item",
+                "description": "Manage Grocery Item",
+                "parameters": [{
+                    "name": "itemId",
+                    "in": "path",
+                    "description": "Item id to update",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }],
+                "requestBody": {
+                    "description": "Request body",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "quantity": {
+                                        "type": "integer",
+                                        "format": "int64"
+                                    },
+                                    "operation": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/api/grocery-list": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get All Grocery List",
+                "description": "Get All Grocery List",
+                "parameters": [{
+                        "name": "name",
+                        "in": "query",
+                        "description": "Search on name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        },
+        "/api/order": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get Order History",
+                "description": "Get Order History",
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            },
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Place Order Item",
+                "description": "Place Order Item",
+                "requestBody": {
+                    "description": "Request body",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "xml": {
+                                    "wrapped": true
+                                },
+                                "items": {
+                                    "properties": {
+                                        "itemId": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "orderedQuantity": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [{
+                    "Bearer": []
+                }]
+            }
+        }
+    }
+}
